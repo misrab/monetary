@@ -6,16 +6,19 @@ from random import uniform
 INITIAL_PRICE = 1
 PRICE_DELTA_MULT_FLOOR = 0.9
 PRICE_DELTA_MULT_CEIL = 1.1
+# assume price is always non-zero because life gets boring thereafter
+PRICE_FLOOR = 1e-3
 
 class PriceFeed(object):
     def __init__(self):
         self.price = INITIAL_PRICE
         return
 
-    # return a random number
-    def get(self):
+    # return current price _and_ iterate it
+    # for read-only use feed.price
+    def tick(self):
         current_price = self.price
-        self.price = uniform(PRICE_DELTA_MULT_FLOOR, PRICE_DELTA_MULT_CEIL) * self.price
+        self.price = max(PRICE_FLOOR, uniform(PRICE_DELTA_MULT_FLOOR, PRICE_DELTA_MULT_CEIL) * self.price)
         return current_price
 
 
