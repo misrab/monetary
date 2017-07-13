@@ -25,7 +25,7 @@ class Bank(object):
         return
 
     def sell_token_for_crypto(self, user):
-
+        return
 
 if __name__ == '__main__':
     print("Testing bank.py...")
